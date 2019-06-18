@@ -1,11 +1,7 @@
 package project.vendingmachine.data_model;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
-import project.vendingmachine.api.AdminController;
 import project.vendingmachine.api.ApiController;
-
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

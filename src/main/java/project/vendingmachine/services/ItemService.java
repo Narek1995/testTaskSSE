@@ -1,8 +1,6 @@
 package project.vendingmachine.services;
 
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import project.vendingmachine.data_model.Item;
 import project.vendingmachine.data_model.ItemRepository;
 import project.vendingmachine.data_model.RequestError;
@@ -11,8 +9,11 @@ import project.vendingmachine.exceptions.RequestProcessingError;
 import java.util.List;
 
 public class ItemService {
-    private @Autowired ItemRepository itemRepository;
+    private ItemRepository itemRepository;
 
+    public ItemService(@Autowired ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
 
     public Item saveOrUpdateItem(Item item){
         return itemRepository.save(item);

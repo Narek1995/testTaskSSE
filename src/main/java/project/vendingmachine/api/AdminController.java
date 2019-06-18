@@ -1,8 +1,5 @@
 package project.vendingmachine.api;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonView;
 import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +15,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-    @Autowired
-    private ItemService itemService;
+    private final ItemService itemService;
+
+    public AdminController(@Autowired ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     @PostMapping("/addOrUpdateItem")
     public Map<String, Object> addItem(@RequestBody @Valid Item item){

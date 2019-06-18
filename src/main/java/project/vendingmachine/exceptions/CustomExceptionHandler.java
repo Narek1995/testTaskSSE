@@ -1,10 +1,8 @@
 package project.vendingmachine.exceptions;
 
 
-import com.sun.deploy.util.ReflectionUtil;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -16,9 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import project.vendingmachine.data_model.RequestError;
 
 import javax.validation.ConstraintViolation;
-import javax.xml.ws.Response;
 import java.lang.reflect.Field;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 

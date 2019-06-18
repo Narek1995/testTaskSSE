@@ -1,12 +1,12 @@
 package project.vendingmachine.api;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import javafx.util.Pair;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import project.vendingmachine.data_model.Item;
 import project.vendingmachine.services.ItemService;
 
@@ -19,8 +19,11 @@ import java.util.Map;
 @RequestMapping("api")
 
 public class ApiController {
-    @Autowired
-    private ItemService itemService;
+    private final ItemService itemService;
+
+    public ApiController(@Autowired ItemService itemService) {
+        this.itemService = itemService;
+    }
 
 
     @JsonView(ApiController.class)

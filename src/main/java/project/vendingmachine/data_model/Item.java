@@ -2,6 +2,10 @@ package project.vendingmachine.data_model;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+import project.vendingmachine.api.AdminController;
+import project.vendingmachine.api.ApiController;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,13 +15,13 @@ import javax.validation.constraints.NotNull;
 public class Item{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(ApiController.class)
     private int id;
     @NotNull
+    @JsonView(ApiController.class)
     private String type;
     @NotNull
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer maxCount = 10;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull Integer count  = 0;
 
 

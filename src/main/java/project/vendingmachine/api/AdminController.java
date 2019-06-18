@@ -9,23 +9,20 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/items")
-public class ItemController {
-    @Autowired ItemService itemService;
+@RequestMapping("/admin")
+public class AdminController {
+    @Autowired
+    private ItemService itemService;
 
     @PostMapping("/add_item")
     public Item addItem(@RequestBody @Valid Item item){
-        return itemService.addItem(item);
+        return itemService.saveOrUpdateItem(item);
     }
 
-    @GetMapping("/get_items")
-    public List<Item> getItems(){
-        return itemService.getItems();
-    }
 
-    @DeleteMapping("/delete_item")
+    @PostMapping("/delete_item")
     public String deleteItem(@RequestBody @Valid Item item){
-        itemService.deleteItem(item.getName());
+        itemService.deleteItem(item.getType());
         return "OK";
     }
 }

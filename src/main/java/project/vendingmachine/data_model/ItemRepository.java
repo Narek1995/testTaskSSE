@@ -6,5 +6,6 @@ import javax.transaction.Transactional;
 
 public interface ItemRepository extends JpaRepository <Item, Integer> {
     @Transactional
-    void deleteByName(String name);
+    void deleteByType(String name);
+    Item getByType(String name);
 }

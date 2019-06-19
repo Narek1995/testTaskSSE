@@ -36,7 +36,7 @@ public class ItemService {
         return itemRepository.getByType(type);
     }
 
-    public int depositItem(String type) throws Exception {
+    public int depositItem(String type) throws RequestProcessingError {
         Item item = getItemByType(type);
         if(item != null){
             if(item.getCount() < item.getMaxCount()){
@@ -51,7 +51,7 @@ public class ItemService {
         }
     }
 
-    public void withdraw(String type) throws Exception {
+    public void withdraw(String type) throws RequestProcessingError {
         Item item = getItemByType(type);
         if(item != null){
             if(item.getCount() > 0){

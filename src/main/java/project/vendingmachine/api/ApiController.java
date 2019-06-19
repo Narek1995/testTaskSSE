@@ -1,12 +1,8 @@
 package project.vendingmachine.api;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import project.vendingmachine.data_model.Item;
 import project.vendingmachine.services.ItemService;
 
@@ -15,9 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * <b>User API controller</b>
+ *
+ */
 @RestController
 @RequestMapping("api")
-
 public class ApiController {
     private final ItemService itemService;
 
@@ -26,14 +25,32 @@ public class ApiController {
     }
 
 
+    /**
+     * <b>api/getlist</b><br>
+     * Api for getting available item list.<br>
+     * @return
+     */
     @JsonView(ApiController.class)
     @GetMapping("/getlist")
-    public List<Item> getItems(){
+    public List<Item> getList(){
         return itemService.getItems();
     }
 
+    /**
+     * <b>api/deposit</b>
+     * api for adding Item to vending machine
+     * expects:<br>
+     * <p>
+     *     {
+     *          type:string /required
+     *     }
+     * </p>
+     * @param item
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/deposit")
-    public Map<String, Object> deposit(@Valid Item item) throws Exception {
+    public Map<String, Object> deposit(@RequestBody @Valid Item item) throws Exception {
         int id = itemService.depositItem(item.getType());
         Map<String,Object> response = new HashMap<>();
         response.put("id", id);
@@ -41,10 +58,25 @@ public class ApiController {
         return response;
     }
 
+    /**
+     * @apiNote  <b>api/withdraw</b>
+     * api for getting item from vending machine<br>
+     * expects:<br>
+     * <p>
+     *   {
+     *    type:string /required
+     *   }
+     * </p>
+     * @param item
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/withdraw")
-    public Pair<String, String> withdraw(@Valid Item item) throws Exception {
+    public Map<String,String> withdraw(@RequestBody @Valid Item item) throws Exception {
         itemService.withdraw(item.getType());
-        return new Pair<>("status", "OK");
+        Map<String,String> result = new HashMap<>();
+        result.put("status", "OK");
+        return result;
     }
 
 }

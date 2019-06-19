@@ -18,6 +18,10 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * <b>Centralised exception handler to handle Request processing and validation errors</b>
+ *
+ */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
 public class CustomExceptionHandler {
@@ -59,15 +63,27 @@ public class CustomExceptionHandler {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    /**
+     * <b>RequestProcessingException handler</b><br>
+     * This method handles custom RequestProcessingException and sends response to user with
+     * description of current logic violation.<br>
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(RequestProcessingError.class)
     @ResponseBody
-    protected ResponseEntity<Object> handleRequestProcessingError(
+    protected ResponseEntity<Object> handleRequestProcessingException(
             RequestProcessingError ex){
         Map<String, String> result = new HashMap<>();
         result.put(STATUS_KEY, ex.getError().getMessage());
         return new ResponseEntity<Object>(result, HttpStatus.OK);
     }
 
+    /**
+     * Sql constraint violation exception handler
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(org.hibernate.exception.ConstraintViolationException.class)
     @ResponseBody
     protected ResponseEntity<Object> handleSqlConstraintViolationException(

@@ -1,5 +1,8 @@
 package project.vendingmachine.data_model;
 
+/**
+ * <b>Request processing error types.</b>
+ */
 public enum RequestError {
     VALIDATION_ERROR("Invalid Parameters"),
     ITEM_DOES_NOT_EXISTS_ERROR("Item Does not exists"),
